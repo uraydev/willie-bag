@@ -1,0 +1,67 @@
+export default {
+  timer: {
+    title: 'Timer',
+    subtitle: 'Round',
+    timeout: 'Rest',
+    paused: 'Paused',
+    stopped: 'Let\'s go!',
+    confirmationTitle: 'Finish training?',
+    confirmationDesc: 'Timer will be stopped.',
+    confirmationConfirmText: 'Finish',
+    confirmationCancelText: 'Cancel',
+    previewRoundsDuration: 'Round',
+    previewRoundsTimeoutDuration: 'Rest',
+    previewBatchCount: 'Blows',
+    previewBatchTimeoutDuration: 'Execution'
+  },
+  settings: {
+    title: 'Settings',
+    subtitleTrainer: 'Trainer settings',
+    subtitleRounds: 'Timer settings',
+    subtitleApp: 'App settings',
+    hasTrainerLabel: 'Enable trainer',
+    batchCountLabel: 'Blows in batch',
+    batchSpeedLabel: 'Reading speed',
+    batchTimeoutDurationLabel: 'Between batches',
+    hasRoundsLabel: 'Split into rounds',
+    hasRoundsSoundsLabel: 'Turn on sounds',
+    roundsCountLabel: 'Number of rounds',
+    roundsDurationLabel: 'Round duration',
+    roundsTimeoutDurationLabel: 'Between rounds',
+    roundsWarnBeforeEndingDurationLabel: 'Remind about ending',
+    languagesLabel: 'Change language',
+    voicesLabel: 'Choice a trainer voice',
+    validations: {
+      min: 'The min value',
+      max: 'The max value'
+    },
+    setDefaultButtonLabel: 'Reset settings',
+    setDefaultConfirmationTitle: 'Restore initial settings?',
+    setDefaultMessage: 'Settings restored',
+    setDefaultConfirmText: 'Restore',
+    setDefaultCancelText: 'Cancel'
+  },
+  about: {
+    title: 'About',
+    subtitle1: 'Have a blow like Mike?',
+    desc1: 'Cus D’Amato, the coach of such great fighters as: Floyd Patterson, Mike Tyson, José Torres, spent four years creating the legendary Willy car. Wise Cas analyzed the most difficult combinations and hits. Bag Willie is a numbering system for knockout beats from 1 to 8.',
+    subtitle2: 'Principle of operation',
+    desc2: 'Cus completed the development of a simulator before the champion fight of his student Jose Torres (world champion, included in the international boxing fame) with Willy Pastrano. D’Amato always scientifically approached training. When developing a simulator, he was interested in free-motion "shooting" offhand. The task was to work the worker at high speed at the points marked on the projectile, by analogy with the shot, but without aiming.',
+    subtitle3: 'Blows',
+    desc3: 'According to D’Amato, there are eight hits, combinations and combinations of which do not lead to knockout. Each number on the projectile has its own stroke:',
+    batch: {
+      blow1: 'Left hook to the Jaw',
+      blow2: 'Right hook/Straight to the Jaw',
+      blow3: 'Left uppercut',
+      blow4: 'Right uppercut',
+      blow5: 'Left hook to the Liver',
+      blow6: 'Right hook to the Spleen',
+      blow7: 'Jab to th Head',
+      blow8: 'Jab to th Body',
+    },
+    subtitle4: 'Tips',
+    desc4_1: 'It\'s necessary to react as sharply as possible and to fire strongly with corresponding blows into the necessary area. The number of combinations is countless! At the initial stage, Kas forced his students to work on this simulator for 2.5 months.',
+    desc4_2: 'Work on the need for 5-7 rounds per workout. Start with a pair of combinations to get used to. Then gradually increase the number of digits by adding one by one. In the end, you must react with lightning speed to 6-8 digits. The difference between the series is 3-5 seconds.',
+    desc4_3: 'After a couple of months of sparring with Willie, you will throw out the combinations at a frantic pace, at different angles in an insane amount and at a phenomenal speed. This exercise will develop your combat reflex and help you to respond to the opponent’s actions with lightning speed and to orient yourself in battle.'
+  }
+}
