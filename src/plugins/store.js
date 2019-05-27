@@ -28,7 +28,7 @@ export default new Vuex.Store({
       type: 'info',
       text: ''
     },
-    transitionName: 'nav-button'
+    transitionName: 'fade'
   },
 
   mutations: {
@@ -141,7 +141,6 @@ export default new Vuex.Store({
     },
 
     updateTransitionName ({ commit }, value) {
-      console.log(value)
       commit('SET_TRANSITION_NAME', value)
     }
   },

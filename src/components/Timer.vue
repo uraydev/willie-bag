@@ -1,73 +1,75 @@
 <template>
-  <v-layout align-center justify-center
+  <v-layout align-center justify-center row wrap
             class="text-xs-center brown--text text--darken-2"
             v-touch="{
               left: swipeLeft,
               right: swipeRight
             }"
   >
-    <h2 class="display-1 font-weight-bold mt-0">
-      <span v-if="isTimeout">
-        {{ $t('timer.timeout') }}
-        <span v-if="hasRounds" class="deep-orange--text">
-          {{ roundsCurrent }}/{{ roundsCount }}
+    <v-flex xs12>
+      <h2 class="display-1 font-weight-bold mt-0">
+        <span v-if="isTimeout">
+          {{ $t('timer.timeout') }}
+          <span v-if="hasRounds" class="deep-orange--text">
+            {{ roundsCurrent }}/{{ roundsCount }}
+          </span>
         </span>
-      </span>
-      <span v-else-if="timers.tick.isRunning">
-        {{ $t('timer.subtitle') }}
-        <span v-if="hasRounds" class="deep-orange--text">
-          {{ roundsCurrent }}/{{ roundsCount }}
+          <span v-else-if="timers.tick.isRunning">
+          {{ $t('timer.subtitle') }}
+          <span v-if="hasRounds" class="deep-orange--text">
+            {{ roundsCurrent }}/{{ roundsCount }}
+          </span>
         </span>
-      </span>
-      <span v-else-if="paused">
-        {{ $t('timer.paused') }}
-        <span v-if="hasRounds" class="deep-orange--text">
-          {{ roundsCurrent }}/{{ roundsCount }}
+          <span v-else-if="paused">
+          {{ $t('timer.paused') }}
+          <span v-if="hasRounds" class="deep-orange--text">
+            {{ roundsCurrent }}/{{ roundsCount }}
+          </span>
         </span>
-      </span>
-      <span v-else>
-        {{ $t('timer.stopped') }}
-      </span>
-    </h2>
+        <span v-else>
+          {{ $t('timer.stopped') }}
+        </span>
+      </h2>
+    </v-flex>
+    <v-flex xs12>
+      <time id="timer" class="white elevation-2" @click="floatingAction" v-ripple>
+        <span id="clock-string" class="display-3 font-weight-bold deep-orange--text">
+          {{ timerString }}
+        </span>
+        <template v-for="s in numbersOfSeconds">
+          <span v-if="s%5" :key="s" :class="`stroke stroke-small stroke-${s}`"></span>
+          <span v-else :key="s" :class="`stroke stroke-${s}`"></span>
+        </template>
+        <span class="arrow" ref="arrow-seconds"></span>
+      </time>
+    </v-flex>
 
-    <time id="timer" class="white elevation-2" @click="floatingAction">
-      <span id="clock-string" class="display-3 font-weight-bold deep-orange--text">
-        {{ timerString }}
-      </span>
-      <template v-for="s in numbersOfSeconds">
-        <span v-if="s%5" :key="s" :class="`stroke stroke-small stroke-${s}`"></span>
-        <span v-else :key="s" :class="`stroke stroke-${s}`"></span>
-      </template>
-      <span class="arrow" ref="arrow-seconds"></span>
-    </time>
-
-    <v-card v-if="hasRounds || hasTrainer"
-            class="brown lighten-4"
-            flat
-            width="100%">
-      <v-card-text class="brown--text text--darken-2">
-        <div v-if="hasRounds">
-          {{ $t('timer.previewRoundsDuration') }}:
-          <span class="font-weight-medium orange--text text--accent-4 mr-2">
+    <v-flex xs12>
+      <v-card v-if="hasRounds || hasTrainer" flat class="brown lighten-4">
+        <v-card-text class="brown--text text--darken-2">
+          <div v-if="hasRounds">
+            {{ $t('timer.previewRoundsDuration') }}:
+            <span class="font-weight-medium orange--text text--accent-4 mr-2">
             {{ this.roundsDuration|time }}
           </span>
-          {{ $t('timer.previewRoundsTimeoutDuration') }}:
-          <span class="font-weight-medium orange--text text--accent-4">
+            {{ $t('timer.previewRoundsTimeoutDuration') }}:
+            <span class="font-weight-medium orange--text text--accent-4">
             {{ this.roundsTimeoutDuration|time }}
           </span>
-        </div>
-        <div v-if="hasTrainer">
-          {{ $t('timer.previewBatchCount') }}:
-          <span class="font-weight-medium orange--text text--accent-4 mr-2">
+          </div>
+          <div v-if="hasTrainer">
+            {{ $t('timer.previewBatchCount') }}:
+            <span class="font-weight-medium orange--text text--accent-4 mr-2">
             {{ this.batchCount }}
           </span>
-          {{ $t('timer.previewBatchTimeoutDuration') }}:
-          <span class="font-weight-medium mr-2 orange--text text--accent-4">
+            {{ $t('timer.previewBatchTimeoutDuration') }}:
+            <span class="font-weight-medium mr-2 orange--text text--accent-4">
             {{ this.batchTimeoutDuration|time }}
           </span>
-        </div>
-      </v-card-text>
-    </v-card>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-flex>
 
     <confirm-dialog
         ref="confirmation-dialog"

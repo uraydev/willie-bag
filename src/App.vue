@@ -8,9 +8,9 @@
       </v-toolbar-title>
       <v-spacer />
       <v-btn v-for="item in menuItems"
+             :to="item.to"
              :key="item.icon"
              flat icon
-             @click="clickNavButton(item.to)"
       >
         <v-icon>{{ item.icon }}</v-icon>
       </v-btn>
@@ -18,16 +18,20 @@
 
     <v-content>
       <v-container class="fill-height pt-4 pb-5">
-        <transition :name="getTransitionName">
+        <transition
+            :name="getTransitionName"
+            mode="out-in"
+            @enter="handleEnterTransition"
+        >
           <router-view />
         </transition>
       </v-container>
     </v-content>
 
     <v-btn v-if="$route.name !== 'timer'"
+           to="timer"
            dark fab large fixed bottom right
            color="orange accent-4"
-           @click="clickNavButton('timer')"
     >
       <v-icon>timer</v-icon>
     </v-btn>
@@ -108,9 +112,8 @@ export default {
       this.$i18n.locale = this.$ls.get('locale')
     },
 
-    clickNavButton(to) {
-      this.updateTransitionName('nav-button')
-      this.$router.push(to)
+    handleEnterTransition() {
+      this.updateTransitionName('fade')
     }
   },
 
@@ -130,23 +133,31 @@ export default {
 
   /* Enter and leave animations can use different */
   /* durations and timing functions.              */
-  .swipe-left-enter-active,
-  .swipe-left-leave-active,
-  .swipe-right-enter-active,
-  .swipe-right-leave-active,
-  .nav-button-enter-active,
-  .nav-button-leave-active
-    transition all .2s ease-in-out
-  .swipe-left-enter
-    transform translateX(100%)
-  .swipe-left-leave-to
-    transform translateX(0)
-  .swipe-right-enter
-    transform translateX(0)
-  .swipe-right-leave-to
-    transform translateX(100%)
-  .nav-button-enter
-    opacity 0
-  .nav-button-leave-to
-    opacity 1
+  .swipe-left
+    &-enter-active,
+    &-leave-active
+      transition transform .1s ease-in
+    &-enter
+      transform translateX(100%)
+    &-leave-to
+      transform translateX(0)
+
+
+  .swipe-right
+    &-enter-active,
+    &-leave-active
+      transition transform .1s ease-in
+    &-enter
+      transform translateX(0)
+    &-leave-to
+      transform translateX(100%)
+
+  .fade
+    &-enter-active,
+    &-leave-active
+      transition opacity .3s
+    &-enter
+      opacity 0
+    &-leave-to
+      opacity 1
 </style>
