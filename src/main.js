@@ -35,6 +35,7 @@ const app = {
 
   receivedEvent() {
     window.screen.orientation.lock('portrait')
+    cordova.plugins.backgroundMode.enable()
   },
 
   setupVue() {
