@@ -1,10 +1,9 @@
 <template>
   <v-layout row wrap
             class="brown--text text--darken-2"
-            transition="slide-x-transition"
             v-touch="{
-              left: () => { $router.push('timer') },
-              right: () => { $router.push('settings') }
+              left: swipeLeft,
+              right: swipeRight
             }"
   >
     <v-flex xs12>
@@ -57,8 +56,19 @@ export default {
 
   methods: {
     ...mapActions([
-      'updateAppTitle'
-    ])
+      'updateAppTitle',
+      'updateTransitionName'
+    ]),
+
+    swipeLeft() {
+      this.updateTransitionName('swipe-left')
+      this.$router.push('timer')
+    },
+
+    swipeRight() {
+      this.updateTransitionName('swipe-right')
+      this.$router.push('settings')
+    }
   },
 
   created () {

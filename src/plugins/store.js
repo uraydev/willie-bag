@@ -27,7 +27,8 @@ export default new Vuex.Store({
     message: {
       type: 'info',
       text: ''
-    }
+    },
+    transitionName: 'nav-button'
   },
 
   mutations: {
@@ -72,6 +73,9 @@ export default new Vuex.Store({
     },
     [types.SET_MESSAGE] (state, value) {
       Vue.set(state, 'message', value)
+    },
+    [types.SET_TRANSITION_NAME] (state, value) {
+      Vue.set(state, 'transitionName', value)
     }
   },
 
@@ -134,6 +138,11 @@ export default new Vuex.Store({
 
     clearMessage ({ commit }) {
       commit('SET_MESSAGE', { type: 'info', text: '' })
+    },
+
+    updateTransitionName ({ commit }, value) {
+      console.log(value)
+      commit('SET_TRANSITION_NAME', value)
     }
   },
 
@@ -151,6 +160,7 @@ export default new Vuex.Store({
     getLocale: state => state.locale,
     getVoice: state => state.voice,
     getMessage: state => state.message,
-    getAppTitle: state => state.appTitle
+    getAppTitle: state => state.appTitle,
+    getTransitionName: state => state.transitionName
   },
 })

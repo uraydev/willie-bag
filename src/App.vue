@@ -3,35 +3,42 @@
     <message :timeout="1500" />
 
     <v-toolbar app dark color="deep-orange">
-      <v-toolbar-title class="title white--text">
+      <v-toolbar-title class="title">
         {{ getAppTitle }}
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn v-for="item in menuItems" :to="item.to" :key="item.icon" flat icon>
-          <v-icon>{{ item.icon }}</v-icon>
+      <v-spacer />
+      <v-btn v-for="item in menuItems"
+             :key="item.icon"
+             flat icon
+             @click="clickNavButton(item.to)"
+      >
+        <v-icon>{{ item.icon }}</v-icon>
       </v-btn>
     </v-toolbar>
 
-    <v-content align-center>
-      <v-container fluid class="fill-height pt-4 pb-5">
-        <router-view />
+    <v-content>
+      <v-container class="fill-height pt-4 pb-5">
+        <transition :name="getTransitionName">
+          <router-view />
+        </transition>
       </v-container>
     </v-content>
 
-    <v-footer fixed class="pa-3" color="brown lighten-2" dark>
-      <v-layout align-center class="text-xs-center">
-        <v-flex xs>
+    <v-btn v-if="$route.name !== 'timer'"
+           dark fab large fixed bottom right
+           color="orange accent-4"
+           @click="clickNavButton('timer')"
+    >
+      <v-icon>timer</v-icon>
+    </v-btn>
+
+    <v-footer fixed dark class="pa-3" color="brown lighten-2">
+      <v-layout class="text-xs-center">
+        <v-flex>
           &copy; {{ year }} by <a :href="author.url" class="brown--text text--lighten-4">
             {{ author.name }}
           </a>
         </v-flex>
-        <v-btn v-if="$route.name !== 'timer'"
-               to="timer"
-               dark fab large fixed bottom right
-               color="orange accent-4"
-        >
-          <v-icon>timer</v-icon>
-        </v-btn>
       </v-layout>
     </v-footer>
   </v-app>
@@ -57,7 +64,8 @@ export default {
 
   computed: {
     ...mapGetters([
-      'getAppTitle'
+      'getAppTitle',
+      'getTransitionName'
     ]),
     year: () => new Date().getFullYear()
   },
@@ -75,7 +83,8 @@ export default {
       'updateRoundsTimeoutDuration',
       'updateRoundsWarnBeforeEndingDuration',
       'updateLocale',
-      'updateVoice'
+      'updateVoice',
+      'updateTransitionName'
     ]),
 
     setLocalSettings() {
@@ -97,6 +106,11 @@ export default {
       this.updateVoice(this.$ls.get('voice'))
       this.updateLocale(this.$ls.get('locale'))
       this.$i18n.locale = this.$ls.get('locale')
+    },
+
+    clickNavButton(to) {
+      this.updateTransitionName('nav-button')
+      this.$router.push(to)
     }
   },
 
@@ -113,4 +127,26 @@ export default {
 
   .material-icons
     display flex
+
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .swipe-left-enter-active,
+  .swipe-left-leave-active,
+  .swipe-right-enter-active,
+  .swipe-right-leave-active,
+  .nav-button-enter-active,
+  .nav-button-leave-active
+    transition all .2s ease-in-out
+  .swipe-left-enter
+    transform translateX(100%)
+  .swipe-left-leave-to
+    transform translateX(0)
+  .swipe-right-enter
+    transform translateX(0)
+  .swipe-right-leave-to
+    transform translateX(100%)
+  .nav-button-enter
+    opacity 0
+  .nav-button-leave-to
+    opacity 1
 </style>

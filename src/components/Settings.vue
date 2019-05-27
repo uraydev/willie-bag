@@ -1,10 +1,9 @@
 <template>
   <v-layout row wrap
             class="brown--text text--darken-2"
-            transition="slide-x-transition"
             v-touch="{
-              left: () => { $router.push('about') },
-              right: () => { $router.push('timer') }
+              left: swipeLeft,
+              right: swipeRight
             }"
   >
     <v-flex xs12>
@@ -76,7 +75,6 @@
       </number-field>
     </v-flex>
 
-
     <v-flex xs12 class="mt-5">
       <h2 class="caption text-uppercase brown--text text--lighten-2">
         {{ $t('settings.subtitleTrainer') }}
@@ -100,7 +98,7 @@
           background-color="brown lighten-4"
           box
           required
-      ></v-select>
+      />
 
       <number-field
           :label="$t('settings.batchCountLabel')"
@@ -156,7 +154,7 @@
           background-color="brown lighten-4"
           box
           required
-      ></v-select>
+      />
     </v-flex>
     <v-flex xs12>
       <v-btn block color="brown lighten-2" outline @click="restoreSettings">
@@ -382,7 +380,8 @@ export default {
       'updateLocale',
       'updateVoice',
       'updateAppTitle',
-      'sendMessage'
+      'sendMessage',
+      'updateTransitionName'
     ]),
 
     add(name) {
@@ -461,6 +460,16 @@ export default {
             text: this.$t('settings.setDefaultMessage')
           })
         })
+    },
+
+    swipeLeft() {
+      this.updateTransitionName('swipe-left')
+      this.$router.push('about')
+    },
+
+    swipeRight() {
+      this.updateTransitionName('swipe-right')
+      this.$router.push('timer')
     }
   },
 
